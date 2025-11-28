@@ -1,0 +1,7 @@
+{
+  "name": "php-header-api",
+  "require": {},
+  "scripts": {
+    "start": "php -S 0.0.0.0:8080"
+  }
+}

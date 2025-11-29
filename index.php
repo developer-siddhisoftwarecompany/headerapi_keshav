@@ -10,10 +10,12 @@ $dataFile = "data.json";
 $storedNumbers = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
 
 // Get all headers
-$headers = getallheaders();
+$headers = $headers = array_change_key_case($_SERVER, CASE_LOWER);
+
 
 // API 1: AUTH
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($headers["auth-key"])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($headers["http_auth_key"])
+) {
     $correctKey = "12345";
     if ($headers["auth-key"] === $correctKey) {
         echo json_encode(["status" => "success", "message" => "Welcome!"]);

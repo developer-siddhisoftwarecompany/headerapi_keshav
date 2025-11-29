@@ -38,17 +38,36 @@ function validateSixDigitNum($num) {
 }
 
 
+
+
 // ----------------------------
-// API 1 — AUTH
+// API 1 — AUTH (Fixed 6-digit Key)
 // ----------------------------
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $authKey !== null) {
-    if ($authKey == "12345") {
-        echo json_encode(["status" => "success", "message" => "Welcome!"]);
-    } else {
-        echo json_encode(["status" => "failed", "message" => "Retry with different number"]);
+
+    // Validate must be 6 digits only
+    $valid = validateSixDigitNum($authKey);
+    if (!$valid["valid"]) {
+        echo json_encode($valid);
+        exit;
     }
+
+    // Check fixed key
+    if ($authKey === "123456") {
+        echo json_encode([
+            "status" => "success",
+            "message" => "Welcome!"
+        ]);
+    } else {
+        echo json_encode([
+            "status" => "failed",
+            "message" => "Retry with different number"
+        ]);
+    }
+
     exit;
 }
+
 
 
 // ----------------------------

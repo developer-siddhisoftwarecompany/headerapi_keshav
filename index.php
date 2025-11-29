@@ -9,15 +9,14 @@ date_default_timezone_set('Asia/Kolkata');
 $dataFile = "data.json";
 $storedNumbers = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
 
-// Read headers from $_SERVER (Render compatible)
+// Read headers from $_SERVER 
 $authKey    = $_SERVER["HTTP_AUTH_KEY"]    ?? null;
 $saveNumber = $_SERVER["HTTP_SAVE_NUMBER"] ?? null;
 $checkNumber = $_SERVER["HTTP_CHECK_NUMBER"] ?? null;
 
 
-// --------------------
+
 // API 1 → AUTH
-// --------------------
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $authKey !== null) {
 
     if ($authKey === "12345") {
@@ -29,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $authKey !== null) {
 }
 
 
-// --------------------
+
 // API 2 → SAVE NUMBER
 // --------------------
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $saveNumber !== null) {
@@ -44,9 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $saveNumber !== null) {
 }
 
 
-// --------------------
+
 // API 3 → CHECK NUMBER
-// --------------------
 if ($_SERVER["REQUEST_METHOD"] === "GET" && $checkNumber !== null) {
 
     if (in_array($checkNumber, $storedNumbers)) {
